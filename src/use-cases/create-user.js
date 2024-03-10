@@ -9,7 +9,7 @@ export class CreateUserUseCase {
         const userId = uuidv4()
 
         // criptografar a senha
-        const hashedPassword = await bcrypt.hash(createUserParams, 10)
+        const hashedPassword = await bcrypt.hash(createUserParams.password, 10)
 
         // inserir o usuário no banco de dados
         const user = {
