@@ -19,3 +19,8 @@ export const ok = (body) => ({
     statusCode: 201,
     body,
 })
+
+export const notFound = (body) => ({
+    statusCode: 404,
+    body,
+})
