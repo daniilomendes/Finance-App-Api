@@ -28,6 +28,7 @@ export class CreateTransactionController {
             }
 
             const userIdIsValid = checkIfIdIsValid(params.user_id)
+
             if (!userIdIsValid) {
                 return invalidIdResponse()
             }
