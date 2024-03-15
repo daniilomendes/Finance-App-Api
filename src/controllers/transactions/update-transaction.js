@@ -1,5 +1,6 @@
 import {
     badRequest,
+    checkIfAmountIsValid,
     checkIfIdIsValid,
     checkIfTypeIsValid,
     invalidAmountResponse,
@@ -37,7 +38,7 @@ export class UpdateTransactionController {
             }
 
             if (params.amount) {
-                const amountIsValid = checkIfIdIsValid(params.amount)
+                const amountIsValid = checkIfAmountIsValid(params.amount)
 
                 if (!amountIsValid) {
                     return invalidAmountResponse()
@@ -53,7 +54,7 @@ export class UpdateTransactionController {
             }
 
             const transaction = await this.updateTransactionUseCase.execute(
-                httpRequest.parmas.transactionId,
+                httpRequest.params.transactionId,
                 params,
             )
 
