@@ -1,5 +1,5 @@
 import { ZodError } from 'zod'
-import { createtransactionSchema } from '../../schemas/transaction.js'
+import { createTransactionSchema } from '../../schemas/index.js'
 import { serverError, created, badRequest } from '../helpers/index.js'
 
 export class CreateTransactionController {
@@ -11,7 +11,7 @@ export class CreateTransactionController {
         try {
             const params = httpRequest.body
 
-            await createtransactionSchema.parseAsync(params)
+            await createTransactionSchema.parseAsync(params)
 
             const transaction =
                 await this.createTransactionUseCase.execute(params)
