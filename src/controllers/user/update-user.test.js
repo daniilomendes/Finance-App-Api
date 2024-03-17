@@ -43,6 +43,7 @@ describe('UpdateUserController', () => {
     it('should return 400 when an invalid email is provided', async () => {
         // arrange
         const { sut } = makeSut()
+
         // act
         const response = await sut.execute({
             params: httpRequest.params,
@@ -59,6 +60,7 @@ describe('UpdateUserController', () => {
     it('should return 400 when an invalid password is provided', async () => {
         // arrange
         const { sut } = makeSut()
+
         // act
         const response = await sut.execute({
             params: httpRequest.params,
@@ -68,6 +70,22 @@ describe('UpdateUserController', () => {
                     length: 5,
                 }),
             },
+        })
+
+        // assert
+        expect(response.statusCode).toBe(400)
+    })
+
+    it('should return 400 when an invalid id is provided', async () => {
+        // arrange
+        const { sut } = makeSut()
+
+        // act
+        const response = await sut.execute({
+            params: {
+                userId: 'invalid_id',
+            },
+            body: httpRequest.body,
         })
 
         // assert
