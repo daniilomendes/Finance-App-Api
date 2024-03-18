@@ -6,7 +6,7 @@ export const createUserSchema = z.object({
             required_error: 'First name is required.',
         })
         .trim()
-        .min(4, {
+        .min(1, {
             message: 'First name is required.',
         }),
     last_name: z
@@ -14,7 +14,7 @@ export const createUserSchema = z.object({
             required_error: 'Last name is required.',
         })
         .trim()
-        .min(4, {
+        .min(1, {
             message: 'Last name is required.',
         }),
     email: z
@@ -25,7 +25,7 @@ export const createUserSchema = z.object({
             message: 'Please provide a valid e-mail.',
         })
         .trim()
-        .min(4, {
+        .min(1, {
             message: 'Email is required.',
         }),
     password: z
