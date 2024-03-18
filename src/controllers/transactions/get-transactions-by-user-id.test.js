@@ -2,11 +2,11 @@ import { faker } from '@faker-js/faker'
 import { GetTransactionsByUserIdController } from './get-transactions-by-user-id.js'
 
 describe('Get Transactions By User Id', () => {
-    class GetTransactionsByUserIdUseCaseStub {
+    class GetUserByIdUseCaseStub {
         async execute() {
             return {
-                user_id: faker.string.uuid(),
                 id: faker.string.uuid(),
+                user_id: faker.string.uuid(),
                 name: faker.commerce.productName(),
                 date: faker.date.anytime().toISOString(),
                 type: 'EXPENSE',
@@ -16,13 +16,10 @@ describe('Get Transactions By User Id', () => {
     }
 
     const makeSut = () => {
-        const getTransactionsByUserIdUseCase =
-            new GetTransactionsByUserIdUseCaseStub()
-        const sut = new GetTransactionsByUserIdController(
-            getTransactionsByUserIdUseCase,
-        )
+        const getUserByIdUseCase = new GetUserByIdUseCaseStub()
+        const sut = new GetTransactionsByUserIdController(getUserByIdUseCase)
 
-        return { sut, getTransactionsByUserIdUseCase }
+        return { sut, getUserByIdUseCase }
     }
 
     it('should return 200 when finding transaction by user id successfully', async () => {
@@ -62,5 +59,21 @@ describe('Get Transactions By User Id', () => {
 
         // assert
         expect(response.statusCode).toBe(400)
+    })
+
+    it('should return 500 when GetUserByIdUseCase throws generic error', async () => {
+        // arrange
+        const { sut, getUserByIdUseCase } = makeSut()
+        jest.spyOn(getUserByIdUseCase, 'execute').mockRejectedValueOnce(
+            new Error(),
+        )
+
+        // act
+        const response = await sut.execute({
+            query: { userId: faker.string.uuid() },
+        })
+
+        // assert
+        expect(response.statusCode).toBe(500)
     })
 })
