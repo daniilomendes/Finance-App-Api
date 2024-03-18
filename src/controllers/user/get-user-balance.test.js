@@ -61,8 +61,8 @@ describe('GetUserBalanceController', () => {
 
     it('should call GetUserBalanceUseCase with correct params', async () => {
         // arrange
-        const { sut, deleteUserUseCase } = makeSut()
-        const executeSpy = jest.spyOn(deleteUserUseCase, 'execute')
+        const { sut, getUserBalanceUseCase } = makeSut()
+        const executeSpy = jest.spyOn(getUserBalanceUseCase, 'execute')
 
         // act
         await sut.execute(httpRequest)
